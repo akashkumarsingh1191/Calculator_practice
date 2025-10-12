@@ -13,7 +13,7 @@ class History_Manager:
             }
         )
     def display_history(self):
-        return f'Overall History of the Operation performed at this time: {self.__records}'
+        return self.__records
     
     def clear_history(self):
         self.__records.clear()

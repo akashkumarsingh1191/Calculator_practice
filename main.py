@@ -8,27 +8,43 @@ class Calculation:
         self.operation = Operation(self.number1, self.number2) #composition
         self.history = History_Manager() #compositon
 
+    def __execute_and_history(self, operation_method):
+        try:
+            self.result, self.status = operation_method()
+            self.history.record(self.number1,self.number2,self.symbol,self.result,self.status)
+        except Exception as e:
+            self.result = 0
+            self.history.record(self.number1,self.number2,self.symbol,self.result,self.status)
+        return self.result
+        
+
     def cal_operation(self):
         if self.symbol == '+':
-            self.result, self.status = self.operation.addition()
-            self.history.record(self.number1,self.number2,self.symbol,self.result,self.status)
-            return self.result
+            # self.__execute_and_history()
+            return self.__execute_and_history(self.operation.addition)
+            # self.result, self.status = self.operation.addition()
+            # self.history.record(self.number1,self.number2,self.symbol,self.result,self.status)
+            # return self.result
         elif self.symbol == "-":
-            self.result, self.status  = self.operation.subtraction()
-            self.history.record(self.number1,self.number2,self.symbol,self.result,self.status)
-            return self.result
+            return self.__execute_and_history(self.operation.subtraction)
+            # self.result, self.status  = self.operation.subtraction()
+            # self.history.record(self.number1,self.number2,self.symbol,self.result,self.status)
+            # return self.result
         elif self.symbol == "*":
-            self.result, self.status  = self.operation.multiplication()
-            self.history.record(self.number1,self.number2,self.symbol,self.result,self.status)
-            return self.result
+            return self.__execute_and_history(self.operation.multiplication)
+            # self.result, self.status  = self.operation.multiplication()
+            # self.history.record(self.number1,self.number2,self.symbol,self.result,self.status)
+            # return self.result
         elif self.symbol == "/":
-            self.result, self.status  = self.operation.division()
-            self.history.record(self.number1,self.number2,self.symbol,self.result,self.status)
-            return self.result
+            return self.__execute_and_history(self.operation.division)
+            # self.result, self.status  = self.operation.division()
+            # self.history.record(self.number1,self.number2,self.symbol,self.result,self.status)
+            # return self.result
         elif self.symbol == "%":
-            self.result, self.status  = self.operation.reminder()
-            self.history.record(self.number1,self.number2,self.symbol,self.result,self.status)
-            return self.result
+            return self.__execute_and_history(self.operation.reminder)
+            # self.result, self.status  = self.operation.reminder()
+            # self.history.record(self.number1,self.number2,self.symbol,self.result,self.status)
+            # return self.result
         else:
             return f"Return valid operator..."
     def clear_history(self):
