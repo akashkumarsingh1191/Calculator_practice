@@ -1,3 +1,4 @@
+import math
 from Utils.history import History_Manager
 from operation import Operation
 class Calculation:
@@ -19,12 +20,17 @@ class Calculation:
             self.history.record(self.__number1,self.__number2,self.symbol,self.__result,self.status)
         return self.__result
 
+    @property
+    def result(self):
+        return self.__result
+
+    def reset_value(self):
+        self.__result = 0
+        return f'Result reset..'
+
     def set_value(self, symbol, new_value):
         self.symbol = symbol
-        try:
-            self.__number1 = 0 if self.__result is None or math.isinf(self.__result) else self.__result
-        except Exception as e:
-            print(f'Not able to convert the previous result..')
+        self.__number1 = 0 if self.__result is None or math.isinf(self.__result) else self.__result
         try:
             self.__number2 = float(new_value)
             self.operation.set_value(self.__number1, self.__number2)
@@ -52,5 +58,6 @@ class Calculation:
             return self.__execute_and_history(self.operation.reminder)
         else:
             return f"Return valid operator..."
+    
     def clear_history(self):
-        self.history.clear_history()
+        return self.history.clear_history()

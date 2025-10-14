@@ -1,0 +1,12 @@
+# I don't want to store crediential as well as secret to the github so I created a gitignore file
+
+# Ignore python compiled file
+__pycache__/
+*.pyc
+*.ipynb
+
+# Logs
+.logs
+
+#Environment Variable
+.env
